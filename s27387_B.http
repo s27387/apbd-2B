@@ -1,0 +1,6 @@
+@s27387_B_HostAddress = http://localhost:5091
+
+GET {{s27387_B_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
