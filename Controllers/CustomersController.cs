@@ -24,6 +24,7 @@ public class CustomersController : ControllerBase
     public async Task<IActionResult> GetCustomerAsync([FromRoute] int customerId)
     {
         var response = await _customersService.GetCustomerWithPurchasesAsync(customerId);
+        
         return Ok(response);
     }
 }
