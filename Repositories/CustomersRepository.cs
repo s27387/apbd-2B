@@ -18,47 +18,21 @@ public class CustomersRepository : ICustomersRepository
     {
         return await _dbContext.Customers.AnyAsync(c => c.CustomerId == cusomerId);
     }
-    
-    public async Task<Customer> GetOrAddCustomerAsync(Customer customer)
+    public async Task<Customer?> GetCustomerWithPurchasesAsync(int customerId)
     {
-        var existingCustomer = await _dbContext.Customers
-            .FirstOrDefaultAsync(c => c.CustomerId == customer.CustomerId
-                                      && c.FirstName == customer.FirstName
-                                      && c.LastName == customer.LastName
-                                      && c.PhoneNumber == customer.PhoneNumber);
-        if (existingCustomer != null)
-        {
-            return existingCustomer;
-        }
-
-        _dbContext.Customers.Add(customer);
-        await _dbContext.SaveChangesAsync();
-        return customer;
-    }
-    
-    public async Task AddPurchasedTicketsAsync(Customer customer, Purchases purchases)
-    {
-
-        foreach (Purchase purchase in purchases.purchases)
-        {
-            _dbContext.Tickets.Add(new Ticket()
-            {
-                SeatNumber = purchase.SeatNumber,
-                SerialNumber = Convert.ToString(purchase.SeatNumber)
-            });
-            var concert = await _dbContext.Concerts.FirstOrDefaultAsync(c => c.Name == purchase.concertName);
-            
-        }
-        await _dbContext.SaveChangesAsync();
-    }
-    
-    public async Task<Customer?> GetCustomerWithDetailsAsync(int customerId)
-    {
-        return await _dbContext.Customers
+        var customer = await _dbContext.Customers
             .Include(c => c.PurchasedTickets)
             .ThenInclude(pt => pt.TicketConcert)
-            .ThenInclude(t => t.Concert)
+            .ThenInclude(tc => tc.Concert)
+            .Include(c => c.PurchasedTickets)
+            .ThenInclude(pt => pt.TicketConcert)
+            .ThenInclude(tc => tc.Ticket)
             .FirstOrDefaultAsync(c => c.CustomerId == customerId);
+
+        if (customer == null)
+            return null;
+
+        return customer;
     }
     
 }

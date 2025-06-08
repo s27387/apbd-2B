@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using s27387_B.DLA;
 
@@ -11,9 +12,11 @@ using s27387_B.DLA;
 namespace s27387_B.Migrations
 {
     [DbContext(typeof(TicketSystemDbContext))]
-    partial class TicketSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250608202037_AddedTablesAndData")]
+    partial class AddedTablesAndData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

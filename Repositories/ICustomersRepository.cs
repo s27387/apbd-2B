@@ -1,6 +1,9 @@
-﻿namespace s27387_B.Repositories;
+﻿using s27387_B.DTOs;
+using s27387_B.Models;
 
-public class ICustomersRepository
+namespace s27387_B.Repositories;
+
+public interface ICustomersRepository
 {
-    
+     Task<Customer?> GetCustomerWithPurchasesAsync(int customerId);
 }

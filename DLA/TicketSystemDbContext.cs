@@ -10,8 +10,7 @@ public class TicketSystemDbContext : DbContext
     public DbSet<Concert> Concerts { get; set; }
     public DbSet<TicketConcert> TicketConcerts { get; set; }
     public DbSet<PurchasedTicket> PurchasedTickets { get; set; }
-
-
+    
     protected TicketSystemDbContext()
     {
     }
@@ -51,5 +50,12 @@ public class TicketSystemDbContext : DbContext
             new Customer { CustomerId = 2, FirstName = "David", LastName = "Gryfindor", PhoneNumber = "888777666"},
             new Customer { CustomerId = 3, FirstName = "Albus", LastName = "Slytherin"}
         );
+        
+        modelBuilder.Entity<Customer>().ToTable("Customer");
+        modelBuilder.Entity<Ticket>().ToTable("Ticket");
+        modelBuilder.Entity<Concert>().ToTable("Concert");
+        modelBuilder.Entity<TicketConcert>().ToTable("Ticket_Concert");
+        modelBuilder.Entity<PurchasedTicket>().ToTable("Purchased_Ticket");
+        
     }
 }

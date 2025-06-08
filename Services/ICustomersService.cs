@@ -1,6 +1,8 @@
-﻿namespace s27387_B.Services;
+﻿using s27387_B.DTOs;
 
-public class ICustomersService
+namespace s27387_B.Services;
+
+public interface ICustomersService
 {
-    
+    Task<CustomerPurchasesDto?> GetCustomerWithPurchasesAsync(int customerId);
 }
